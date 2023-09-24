@@ -8,6 +8,7 @@ print("There exists exactly one Pythagorean triplet for which a + b + c = 1000. 
 answer_found = False
 
 #guess a value of c
+target_sum = 1000
 c = 500
 d = 0
 s = 1
@@ -27,5 +28,8 @@ while not answer_found:
 print(f"a={a}")
 print(f"b={b}")
 print(f"c={c}")
-print(f"answer: {a*b*c}")
+answer= a*b*c
+print(f"answer: {answer}")
+if target_sum == 1000 and answer != 31875000:
+    print("answer is wrong")
 print(f"time taken = {time.time()-start:.4f}s")
