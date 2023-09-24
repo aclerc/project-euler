@@ -1,8 +1,6 @@
 import time
 start = time.time()
 
-# TODO the below code takes >3s. Use a sieve instead
-
 def is_prime(n):
     if n < 2:
         return False
