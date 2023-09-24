@@ -32,14 +32,40 @@ def get_next_prime(n):
 
 
 n = 2000000
-print(f"Find the sum of all the primes below {n}.")
-p = 0
-answer = 0
-while True:
-    p = get_next_prime(p)
-    if p < n:
-        answer += p
-    else:
-        break
-print(f"answer: {answer}")
+print(f"Find the sum of all the primes below {n}")
+if n < 8:
+    p = 0
+    answer = 0
+    while True:
+        p = get_next_prime(p)
+        if p < n:
+            answer += p
+        else:
+            break
+else:
+    # make a list of all numbers from 1 to n-1
+    ns = [x+1 for x in range(n-1)]
+    # sieve out 1 because it is not prime
+    answer = 0
+    x = 1
+    ns[(x-1)] = 0
+    # special code for 2 and 3
+    x = 2
+    answer += x
+    ns[(x-1)::(x)] = [0] * len(ns[(x-1)::(x)])
+    x = 3
+    answer += x
+    ns[(x-1)::(x)] = [0] * len(ns[(x-1)::(x)])
+    x-=2
+    while x**2 <= (n-1):
+        if (x-1)%6==0:
+            x+=4
+        else:
+            x+=2
+        if is_prime(x):
+            answer += x
+            ns[(x-1)::(x)] = [0] * len(ns[(x-1)::(x)])
+    answer += sum(ns)
+
+print(f"answer={answer}")
 print(f"time taken = {time.time()-start:.4f}s")
