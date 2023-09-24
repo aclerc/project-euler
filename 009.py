@@ -3,6 +3,7 @@ start = time.time()
 
 print("There exists exactly one Pythagorean triplet for which a + b + c = 1000. Find the product abc.")
 
+# TODO this can be done better by using the form c = m**2 + n**2, b = 2mn, a = m**2 - n**2 where one of m or n is odd to get a primitive pythagorean triple
 
 answer_found = False
 
