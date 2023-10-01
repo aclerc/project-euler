@@ -1,35 +1,37 @@
 import time
+
 start = time.time()
 
 print("There exists exactly one Pythagorean triplet for which a + b + c = 1000. Find the product abc.")
 
-# TODO this can be done better by using the form c = m**2 + n**2, b = 2mn, a = m**2 - n**2 where one of m or n is odd to get a primitive pythagorean triple
+# primitive pythagorean triples are in the form c = m**2 + n**2, b = 2mn, a = m**2 - n**2
+# where one of m or n is odd
 
-answer_found = False
-
-#guess a value of c
 target_sum = 1000
-c = 500
-d = 0
-s = 1
-while not answer_found:
-    c += (s*d)
-    d += 1
-    s *= -1
-    a = 1
-    b = 1000 - c - a
-    while (a <= b) and not answer_found:
-        if c ** 2 == a ** 2 + b ** 2:
-            answer_found = True
-        else:
-            a += 1
-            b -= 1
+answer_found = False
+# guess values of m and n where m>n and one of m, n are even
+m = 2
+n = 1
+s_ = 0
+while not answer_found and s_ < target_sum / 2:
+    s_ = 2 * m ** 2 + 2 * m * n
+    if target_sum % s_ == 0:
+        p = target_sum // s_
+        a = p * (m ** 2 - n ** 2)
+        b = p * 2 * m * n
+        c = p * (m ** 2 + n ** 2)
+        answer = a * b * c
+        print(f"answer: {answer}")
+        answer_found = True
+        break
+    if m - n > 2:
+        n += 2
+        print(f"m={m} n={n}")
+    else:
+        m += 1
+        n = m % 2 + 1
+        print(f"m={m} n={n}")
 
-print(f"a={a}")
-print(f"b={b}")
-print(f"c={c}")
-answer= a*b*c
-print(f"answer: {answer}")
 if target_sum == 1000 and answer != 31875000:
     print("answer is wrong")
-print(f"time taken = {time.time()-start:.4f}s")
+print(f"time taken = {time.time() - start:.4f}s")
