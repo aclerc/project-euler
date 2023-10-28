@@ -35,6 +35,8 @@ while num_divisors(t) <= over_n_divisors:
     n += 1
     t = n * (n + 1) // 2
 
+# TODO could potentially speed this up by fidning the divisors of the two parts, n and n+1 with one being /2
+
 answer = t
 print(f"answer={t}")
 if over_n_divisors == 500 and answer != 76576500:
