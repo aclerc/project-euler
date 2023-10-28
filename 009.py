@@ -14,12 +14,12 @@ m = 2
 n = 1
 s_ = 0
 while not answer_found and s_ < target_sum / 2:
-    s_ = 2 * m ** 2 + 2 * m * n
+    s_ = 2 * m**2 + 2 * m * n
     if target_sum % s_ == 0:
         p = target_sum // s_
-        a = p * (m ** 2 - n ** 2)
+        a = p * (m**2 - n**2)
         b = p * 2 * m * n
-        c = p * (m ** 2 + n ** 2)
+        c = p * (m**2 + n**2)
         answer = a * b * c
         print(f"answer: {answer}")
         answer_found = True

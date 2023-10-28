@@ -13,7 +13,7 @@ def is_prime(n):
     else:
         prime = True
         f = 5  # next factor not tested yet
-        while f ** 2 <= n:
+        while f**2 <= n:
             prime = (n % f != 0) and (n % (f + 2) != 0)
             if not prime:
                 break
@@ -58,16 +58,16 @@ else:
     # special code for 3
     x = 3
     answer += x
-    odd_ns[(x // 2)::(x)] = [0] * len(odd_ns[(x // 2)::(x)])
+    odd_ns[(x // 2) :: (x)] = [0] * len(odd_ns[(x // 2) :: (x)])
     x -= 2
-    while x ** 2 < n:
+    while x**2 < n:
         if (x - 1) % 6 == 0:
             x += 4
         else:
             x += 2
         if odd_ns[(x // 2)] > 0:
             answer += x
-            odd_ns[(x // 2)::(x)] = [0] * len(odd_ns[(x // 2)::(x)])
+            odd_ns[(x // 2) :: (x)] = [0] * len(odd_ns[(x // 2) :: (x)])
     answer += sum(odd_ns)
 
 print(f"answer={answer}")

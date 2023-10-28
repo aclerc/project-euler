@@ -1,12 +1,16 @@
 import time
+
 start = time.time()
 
+
 def sum_to_n(n):
-    return n*(n+1)//2
+    return n * (n + 1) // 2
+
 
 def sum_xs_below_n(n, x):
-    n_for_sum_to_n = (n-1) // x
+    n_for_sum_to_n = (n - 1) // x
     return x * sum_to_n(n_for_sum_to_n)
+
 
 n = 1000
 print(f"Find the sum of all the multiples of 3 or 5 below {n}")

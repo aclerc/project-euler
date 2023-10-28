@@ -1,5 +1,7 @@
 import time
+
 start = time.time()
+
 
 def is_prime(n):
     if n < 2:
@@ -14,6 +16,7 @@ def is_prime(n):
             f += 1
         return prime
 
+
 def get_next_prime(n):
     if n < 2:
         return 2
@@ -22,6 +25,7 @@ def get_next_prime(n):
         while not is_prime(p):
             p += 2
         return p
+
 
 n = 1000
 p = 2

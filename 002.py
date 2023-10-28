@@ -1,7 +1,11 @@
 import time
+
 start = time.time()
 
-print("By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.")
+print(
+    "By considering the terms in the Fibonacci sequence whose values do not exceed four million,"
+    " find the sum of the even-valued terms."
+)
 answer = 2
 fib_2 = 1
 fib_1 = 2

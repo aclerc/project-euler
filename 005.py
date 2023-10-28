@@ -1,6 +1,8 @@
-import time
 import math
+import time
+
 start = time.time()
+
 
 def is_prime(n):
     if n < 2:
@@ -14,6 +16,7 @@ def is_prime(n):
                 break
             f += 1
         return prime
+
 
 def get_next_prime(n):
     if n < 2:
@@ -32,7 +35,7 @@ i = 2
 answer = 1
 while i < n:
     j = int(log_n // math.log(i))
-    answer *= (i ** j)
+    answer *= i**j
     i = get_next_prime(i)
 print(f"answer is {answer}")
 print(f"time taken = {time.time()-start:.4f}s")

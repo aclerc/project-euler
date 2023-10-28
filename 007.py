@@ -1,22 +1,25 @@
 import time
+
 start = time.time()
+
 
 def is_prime(n):
     if n < 2:
         return False
     elif n < 4:
-        return True # 2 and 3 are prime
+        return True  # 2 and 3 are prime
     elif (n % 2 == 0) or (n % 3 == 0):
-        return False # 4 and 6 are sorted
+        return False  # 4 and 6 are sorted
     else:
         prime = True
-        f = 5 # next factor not tested yet
+        f = 5  # next factor not tested yet
         while f**2 <= n:
-            prime = (n % f != 0) and (n % (f+2) != 0)
+            prime = (n % f != 0) and (n % (f + 2) != 0)
             if not prime:
                 break
             f += 6
         return prime
+
 
 def get_next_prime(n):
     if n < 2:
