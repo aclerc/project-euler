@@ -27,7 +27,10 @@ def get_next_prime(n: int) -> int:
     else:
         p = n + (n % 2 + 1)
         while not is_prime(p):
-            p += 2
+            if (p - 1) % 6 == 0:
+                p += 4
+            else:
+                p += 2
     return p
 
 
