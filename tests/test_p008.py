@@ -1,7 +1,7 @@
 from project_euler.largest_product_in_a_series import largest_product_in_series
 
 
-def test_q008() -> None:
+def test_p008() -> None:
     n = (
         "73167176531330624919225119674426574742355349194934"
         "96983520312774506326239578318016984801869478851843"
