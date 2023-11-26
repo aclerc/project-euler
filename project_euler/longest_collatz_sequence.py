@@ -1,16 +1,8 @@
+import math
+
 from project_euler.decorators import print_run_time
 
 collatz_sequence_len_cache: dict[int, int] = {}
-
-
-def calc_collatz_sequence_len(n: int) -> int:
-    if n <= 1:
-        seq_len = 1
-    elif n % 2 == 0:
-        seq_len = 1 + calc_collatz_sequence_len(n // 2)
-    else:
-        seq_len = 2 + calc_collatz_sequence_len((3 * n + 1) // 2)
-    return seq_len
 
 
 def get_collatz_sequence_len(n: int) -> int:
@@ -22,20 +14,30 @@ def get_collatz_sequence_len(n: int) -> int:
     return seq_len
 
 
+def calc_collatz_sequence_len(n: int) -> int:
+    if n <= 1:
+        seq_len = 1
+    elif n % 2 == 0:
+        seq_len = 1 + get_collatz_sequence_len(n // 2)
+    else:
+        seq_len = 2 + get_collatz_sequence_len((3 * n + 1) // 2)
+    return seq_len
+
+
 @print_run_time
 def longest_collatz_chain(start_num_upper: int) -> int:
-    n = start_num_upper
+    n = math.floor(start_num_upper / 2)
     longest_seq = 0
     best_n = n
     # the longest sequence must visit the top half of the problem space
-    while n > start_num_upper / 2:
+    while n <= start_num_upper:
         seq_len = get_collatz_sequence_len(n)
         if seq_len > longest_seq:
             longest_seq = seq_len
             best_n = n
             print(f"n={best_n}")
             print(f"longest_seq={longest_seq}")
-        n -= 1
+        n += 1
     return best_n
 
 
