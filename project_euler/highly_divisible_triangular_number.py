@@ -1,26 +1,8 @@
 import math
 
 from project_euler.decorators import print_run_time
-
-
-def num_divisors(x: int) -> int:
-    if x < 1:
-        num_div = 0
-    elif x == 1:
-        num_div = 1
-    else:
-        num_div = 2  # 1 and itself
-        i = 2
-        j = x
-        while i <= j:
-            if x % i == 0:
-                j = x // i
-                if i == j:
-                    num_div += 1
-                if i < j:
-                    num_div += 2
-            i += 1
-    return num_div
+from project_euler.list_primes import list_primes_below
+from project_euler.num_divisors import calc_num_divisors
 
 
 def calc_a_b_and_t(n: int) -> tuple[int, int, int]:
@@ -34,6 +16,18 @@ def calc_a_b_and_t(n: int) -> tuple[int, int, int]:
     return a, b, t
 
 
+num_divisors_cache: dict[int, int] = {}
+
+
+def get_num_divisors(x: int, list_of_primes: list[int]) -> int:
+    if x in num_divisors_cache:
+        nd = num_divisors_cache[x]
+    else:
+        nd = calc_num_divisors(x, list_of_primes)
+        num_divisors_cache[x] = nd
+    return nd
+
+
 @print_run_time
 def first_triangle_number_with_min_divisors(min_num_divisors: int) -> int:
     # from studying the first few triangular numbers it looks like
@@ -41,10 +35,11 @@ def first_triangle_number_with_min_divisors(min_num_divisors: int) -> int:
     # probably because a and b never have a common divisor
     # so for t to have min_num_divisors, a or b must have at least sqrt(min_num_divisors)
     n = 1
-    while num_divisors(math.factorial(n)) <= math.sqrt(min_num_divisors):
+    list_of_primes = list_primes_below(min_num_divisors * 20)
+    while get_num_divisors(math.factorial(n), list_of_primes) <= math.sqrt(min_num_divisors):
         n += 1
     a, b, t = calc_a_b_and_t(n)
-    while (num_divisors(a) * num_divisors(b)) < min_num_divisors:
+    while (get_num_divisors(a, list_of_primes) * get_num_divisors(b, list_of_primes)) < min_num_divisors:
         n += 1
         a, b, t = calc_a_b_and_t(n)
     return t
