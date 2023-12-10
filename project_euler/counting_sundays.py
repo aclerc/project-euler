@@ -1,4 +1,3 @@
-# 1 Jan 1900 was a Monday.
 def count_sundays_on_first_of_month_one_year(year: int, first_day_of_year: int) -> tuple[int, int]:
     days_in_months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     is_leap_year = False
@@ -19,6 +18,7 @@ def count_sundays_on_first_of_month_one_year(year: int, first_day_of_year: int) 
 
 
 def count_sundays_on_first_of_month(first_year: int, last_year: int) -> int:
+    # 1 Jan 1900 was a Monday.
     first_allowed_year = 1900
     if first_year < first_allowed_year:
         msg = "first_year must be >= 1900"
