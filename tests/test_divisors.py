@@ -1,9 +1,11 @@
-
 import pytest
 
 from project_euler.divisors import calc_num_divisors, list_proper_divisors_using_list_of_primes
 from project_euler.list_primes import list_primes_below
 
+# TODO make list_proper_divisors_using_list_of_primes less complex
+# TODO test for cases when list of primes is too short or empty
+# TODO test for cases when input is a large prime
 
 @pytest.mark.parametrize(
     ("test_input", "expected"),
@@ -24,8 +26,6 @@ from project_euler.list_primes import list_primes_below
 )
 def test_list_proper_divisors_using_list_of_primes(test_input: int, expected: int) -> None:
     assert list_proper_divisors_using_list_of_primes(test_input) == expected
-
-
 
 
 @pytest.mark.parametrize(

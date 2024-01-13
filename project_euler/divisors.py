@@ -6,7 +6,7 @@ from project_euler.list_primes import list_primes_below
 
 
 def list_proper_divisors_using_list_of_primes(x: int, list_of_primes: list[int] | None = None) -> list[int]:
-    if x <= 3: # noqa PLR2004
+    if x <= 3:  # noqa PLR2004
         return [1]
     if list_of_primes is None:
         list_of_primes = list_primes_below(x // 2 + 1 + 2 * math.log(x))
@@ -45,10 +45,9 @@ def calc_num_divisors_using_list_of_primes(x: int, list_of_primes: list[int] | N
     if x < 1:
         msg = "x must be >= 1"
         raise ValueError(msg)
-    elif x == 1:
+    if x == 1:
         return 1
-    else:
-        return len(list_proper_divisors_using_list_of_primes(x, list_of_primes)) + 1
+    return len(list_proper_divisors_using_list_of_primes(x, list_of_primes)) + 1
 
 
 def calc_num_divisors(x: int, list_of_primes: list[int]) -> int:
