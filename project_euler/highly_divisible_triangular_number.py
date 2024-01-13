@@ -1,8 +1,8 @@
 import math
 
 from project_euler.decorators import print_run_time
+from project_euler.divisors import calc_num_divisors
 from project_euler.list_primes import list_primes_below
-from project_euler.num_divisors import calc_num_divisors
 
 
 def calc_a_b_and_t(n: int) -> tuple[int, int, int]:
