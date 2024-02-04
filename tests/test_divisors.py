@@ -20,6 +20,7 @@ from project_euler.list_primes import list_primes_below
         (220, [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110]),
         (284, [1, 2, 4, 71, 142]),
         (1009, [1]),
+        (2018, [1, 2, 1009]),
     ],
 )
 def test_list_proper_divisors_no_list_of_primes(test_input: int, expected: list[int]) -> None:
@@ -31,7 +32,7 @@ def test_list_proper_divisors_no_list_of_primes(test_input: int, expected: list[
     assert list_proper_divisors(test_input, list_of_primes) == expected
     assert calc_num_divisors(test_input, list_of_primes) == (1 if test_input == 1 else len(expected) + 1)
     # test with providing plenty of primes
-    list_of_primes = list_primes_below(2000)
+    list_of_primes = list_primes_below(2018)
     assert list_proper_divisors(test_input, list_of_primes) == expected
     assert calc_num_divisors(test_input, list_of_primes) == (1 if test_input == 1 else len(expected) + 1)
 
