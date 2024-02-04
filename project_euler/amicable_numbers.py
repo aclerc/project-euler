@@ -1,10 +1,10 @@
 from project_euler.decorators import print_run_time
-from project_euler.divisors import list_proper_divisors_using_list_of_primes
+from project_euler.divisors import list_proper_divisors
 from project_euler.list_primes import list_primes_below
 
 
 def sum_proper_divisors(x: int, list_of_primes: list[int]) -> int:
-    return sum(list_proper_divisors_using_list_of_primes(x, list_of_primes))
+    return sum(list_proper_divisors(x, list_of_primes))
 
 
 @print_run_time

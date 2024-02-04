@@ -1,7 +1,7 @@
 import math
 
 from project_euler.decorators import print_run_time
-from project_euler.divisors import calc_num_divisors
+from project_euler.divisors import calc_num_divisors_using_list_of_primes
 from project_euler.list_primes import list_primes_below
 
 
@@ -23,7 +23,7 @@ def get_num_divisors(x: int, list_of_primes: list[int]) -> int:
     if x in num_divisors_cache:
         nd = num_divisors_cache[x]
     else:
-        nd = calc_num_divisors(x, list_of_primes)
+        nd = calc_num_divisors_using_list_of_primes(x, list_of_primes)
         num_divisors_cache[x] = nd
     return nd
 
