@@ -1,5 +1,8 @@
 import math
 
+import numpy as np
+import numpy.typing as npt
+
 from project_euler.decorators import print_run_time
 from project_euler.largest_prime_factor import get_next_prime
 
@@ -34,6 +37,10 @@ def list_primes_below(limit: float) -> list[int]:
                 odd_ns[(x // 2) :: (x)] = [0] * len(odd_ns[(x // 2) :: (x)])
         list_of_primes = xs_used + [x for x in odd_ns if x > 0]
     return list_of_primes
+
+
+def primes_array_below(limit: float) -> npt.NDArray[np.int_]:
+    return np.array(list_primes_below(limit))
 
 
 if __name__ == "__main__":

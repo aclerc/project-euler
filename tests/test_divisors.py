@@ -1,7 +1,8 @@
+import numpy as np
 import pytest
 
-from project_euler.divisors import calc_num_divisors, calc_num_divisors_using_list_of_primes, list_proper_divisors
-from project_euler.list_primes import list_primes_below
+from project_euler.divisors import calc_num_divisors, calc_num_divisors_using_list_of_primes, proper_divisors_array
+from project_euler.list_primes import primes_array_below
 
 
 @pytest.mark.parametrize(
@@ -25,16 +26,17 @@ from project_euler.list_primes import list_primes_below
 )
 def test_list_proper_divisors_no_list_of_primes(test_input: int, expected: list[int]) -> None:
     # test without providing primes list
-    assert list_proper_divisors(test_input) == expected
-    assert calc_num_divisors(test_input) == (1 if test_input == 1 else len(expected) + 1)
+    expected_arr = np.array(expected)
+    assert np.array_equal(proper_divisors_array(test_input), expected_arr)
+    assert calc_num_divisors(test_input) == (1 if test_input == 1 else len(expected_arr) + 1)
     # test with providing too short primes list
-    list_of_primes = [2]
-    assert list_proper_divisors(test_input, list_of_primes) == expected
-    assert calc_num_divisors(test_input, list_of_primes) == (1 if test_input == 1 else len(expected) + 1)
+    primes_array = np.array([2])
+    assert np.array_equal(proper_divisors_array(test_input, primes_array), expected_arr)
+    assert calc_num_divisors(test_input, primes_array) == (1 if test_input == 1 else len(expected_arr) + 1)
     # test with providing plenty of primes
-    list_of_primes = list_primes_below(2018)
-    assert list_proper_divisors(test_input, list_of_primes) == expected
-    assert calc_num_divisors(test_input, list_of_primes) == (1 if test_input == 1 else len(expected) + 1)
+    primes_array = primes_array_below(2018)
+    assert np.array_equal(proper_divisors_array(test_input, primes_array), expected_arr)
+    assert calc_num_divisors(test_input, primes_array) == (1 if test_input == 1 else len(expected_arr) + 1)
 
 
 @pytest.mark.parametrize(
@@ -55,7 +57,7 @@ def test_list_proper_divisors_no_list_of_primes(test_input: int, expected: list[
     ],
 )
 def test_calc_num_divisors_short_list_of_primes(test_input: int, expected: int) -> None:
-    assert calc_num_divisors_using_list_of_primes(test_input, [2]) == expected
+    assert calc_num_divisors_using_list_of_primes(test_input, np.array([2])) == expected
 
 
 @pytest.mark.parametrize(
@@ -76,5 +78,5 @@ def test_calc_num_divisors_short_list_of_primes(test_input: int, expected: int) 
     ],
 )
 def test_calc_num_divisors_long_list_of_primes(test_input: int, expected: int) -> None:
-    list_of_primes = list_primes_below(1000)
-    assert calc_num_divisors_using_list_of_primes(test_input, list_of_primes) == expected
+    primes_array = primes_array_below(1000)
+    assert calc_num_divisors_using_list_of_primes(test_input, primes_array) == expected

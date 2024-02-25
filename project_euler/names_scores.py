@@ -12,7 +12,6 @@ def score_names_file(fpath: Path) -> int:
         for letter in name:
             name_worth += ord(letter.upper()) - ord("A") + 1
         name_score = (i + 1) * name_worth
-        print(f"{name} scores {name_score}")
         total_score += name_score
     return total_score
 

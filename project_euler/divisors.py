@@ -1,13 +1,16 @@
 import math
 from itertools import product
 
+import numpy as np
+import numpy.typing as npt
+
 from project_euler.largest_prime_factor import get_next_prime
-from project_euler.list_primes import list_primes_below
+from project_euler.list_primes import primes_array_below
 
 
-def list_proper_divisors_using_prime_factors_dict(prime_factors_dict: dict[int, int]) -> list[int]:
+def proper_divisors_using_prime_factors_dict(prime_factors_dict: dict[int, int]) -> npt.NDArray[np.int_]:
     if len(prime_factors_dict) == 0:
-        return [1]
+        return np.array([1])
     prime_factors_combos = list(product(*(range(value + 1) for value in prime_factors_dict.values())))[:-1]
     proper_divisors = []
     for pfc in prime_factors_combos:
@@ -15,30 +18,40 @@ def list_proper_divisors_using_prime_factors_dict(prime_factors_dict: dict[int, 
         for p, a in zip(prime_factors_dict.keys(), pfc, strict=False):
             proper_divisor *= p**a
         proper_divisors.append(proper_divisor)
-    return sorted(proper_divisors)
+    return np.array(sorted(proper_divisors))
 
 
-def extend_list_of_primes_if_needed(list_of_primes: list[int], limit: float) -> list[int]:
-    while max(list_of_primes) < limit:
+def extend_primes_array_if_needed(primes_array: npt.NDArray[np.int_], limit: float) -> npt.NDArray[np.int_]:
+    while max(primes_array) < limit:
         print("WARNING: list_of_primes is too short, extending list")
-        list_of_primes.append(get_next_prime(max(list_of_primes)))
-    return list_of_primes
+        primes_array = np.append(primes_array, get_next_prime(max(primes_array)))
+    return primes_array
 
 
-def list_proper_divisors(x: int, list_of_primes: list[int] | None = None) -> list[int]:
-    if x <= 3:  # noqa PLR2004
-        return [1]
-    limit = x // 2 + 1 + 2 * math.log(x)
-    if list_of_primes is None:
-        list_of_primes = list_primes_below(limit)
+def largest_prime_factor_upper_bound(x: int) -> float:
+    return x // 2 + 1 + 2 * math.log(x)
+
+
+def make_or_extend_primes_of_needed(x: int, primes_array: npt.NDArray[np.int_] | None = None) -> npt.NDArray[np.int_]:
+    limit = largest_prime_factor_upper_bound(x)
+    if primes_array is None:
+        primes_array = primes_array_below(limit)
     else:
-        list_of_primes = extend_list_of_primes_if_needed(list_of_primes, limit)
-    if x in list_of_primes:
-        return [1]
+        primes_array = extend_primes_array_if_needed(primes_array, limit)
+    return primes_array
+
+
+def proper_divisors_array(x: int, primes_array: np.ndarray | None = None) -> npt.NDArray[np.int_]:
+    if x <= 3:  # noqa PLR2004
+        return np.array([1])
+    prime_array = np.array(make_or_extend_primes_of_needed(x, primes_array))
+    len_prime_array = len(prime_array)
+    if x in prime_array:
+        return np.array([1])
     i = 0
-    p = list_of_primes[i]
+    p = prime_array[i]
     prime_factors_dict = {}
-    while x >= p and i < len(list_of_primes):
+    while x >= p and i < len_prime_array:
         p_div_count = 0
         while x % p == 0:
             x = x // p
@@ -48,31 +61,31 @@ def list_proper_divisors(x: int, list_of_primes: list[int] | None = None) -> lis
         if x == 1:
             break
         i += 1
-        if i == len(list_of_primes):
+        if i == len_prime_array:
             break
-        p = list_of_primes[i]
+        p = prime_array[i]
     if len(prime_factors_dict) == 0:
-        return [1]
-    return list_proper_divisors_using_prime_factors_dict(prime_factors_dict)
+        return np.array([1])
+    return proper_divisors_using_prime_factors_dict(prime_factors_dict)
 
 
-def calc_num_divisors(x: int, list_of_primes: list[int] | None = None) -> int:
+def calc_num_divisors(x: int, primes_array: np.ndarray | None = None) -> int:
     if x < 1:
         msg = "x must be >= 1"
         raise ValueError(msg)
     if x == 1:
         return 1
-    return len(list_proper_divisors(x, list_of_primes)) + 1
+    return len(proper_divisors_array(x, primes_array)) + 1
 
 
-def calc_num_divisors_using_list_of_primes(x: int, list_of_primes: list[int]) -> int:
+def calc_num_divisors_using_list_of_primes(x: int, primes_array: np.ndarray) -> int:
     if not (isinstance(x, int) and x >= 1):
         msg = "x must be type int and > 0"
         raise ValueError(msg)
-    list_of_primes = extend_list_of_primes_if_needed(list_of_primes, x // 2)
-    return calc_num_divisors(x, list_of_primes)
+    primes_array = extend_primes_array_if_needed(primes_array, x // 2)
+    return calc_num_divisors(x, primes_array)
 
 
 if __name__ == "__main__":
     x = 11
-    print(list_proper_divisors(x))
+    print(proper_divisors_array(x))
