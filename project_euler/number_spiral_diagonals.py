@@ -1,4 +1,3 @@
-
 from project_euler.decorators import print_run_time
 
 
