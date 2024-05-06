@@ -6,5 +6,5 @@ def test_p031() -> None:
     ans = 73682
     assert count_ways_to_make_pence(pence_to_make) == ans
     pence_to_make = 100 * 100
-    ans = 1133873304647601 # answer as per overview pdf
+    ans = 1133873304647601  # answer as per overview pdf
     assert count_ways_to_make_pence(pence_to_make) == ans
