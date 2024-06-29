@@ -1,8 +1,10 @@
 from project_euler.decorators import print_run_time
 
 
-def is_palindrome(n: int) -> bool:
-    return str(n) == str(n)[::-1]
+def is_palindrome(n: int | str) -> bool:
+    if isinstance(n, int):
+        n = str(n)
+    return int(n) == int(n[::-1])  # convert to int to ensure no leading 0
 
 
 @print_run_time

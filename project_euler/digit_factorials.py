@@ -7,7 +7,7 @@ from project_euler.decorators import print_run_time
 @print_run_time
 def sum_of_numbers_equal_to_sum_of_factorial_of_their_digits() -> int:
     ans = 0
-    for n_digits in range(2, 8):  # 7 is the max possible number of digits
+    for n_digits in range(2, 8):  # 7 is the max possible number of digits based on 7*9!
         for digits in combinations_with_replacement("0123456789", n_digits):
             sum_fact = sum(math.factorial(int(x)) for x in digits)
             if sorted(x for x in str(sum_fact)) == sorted(digits) and len(str(sum_fact)) == n_digits:
