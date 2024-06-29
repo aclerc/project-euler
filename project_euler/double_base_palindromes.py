@@ -5,8 +5,8 @@ from project_euler.largest_palindrome_product import is_palindrome
 @print_run_time
 def sum_palindromic_base_10_and_2_less_than(n: int) -> int:
     ans = 0
-    for i in range(1, n):
-        if is_palindrome(i) and is_palindrome(f"{i:b}"):
+    for i in range(1, n, 2):  # even numbers cannot be palindromes in binary
+        if is_palindrome(i) and is_palindrome(int(f"{i:b}")):
             ans += i
     return ans
 
