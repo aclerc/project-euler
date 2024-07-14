@@ -32,7 +32,7 @@ def largest_prime_factor_upper_bound(x: int) -> float:
     return x // 2 + 1 + 2 * math.log(x)
 
 
-def make_or_extend_primes_of_needed(x: int, primes_array: npt.NDArray[np.int_] | None = None) -> npt.NDArray[np.int_]:
+def make_or_extend_primes_if_needed(x: int, primes_array: npt.NDArray[np.int_] | None = None) -> npt.NDArray[np.int_]:
     limit = largest_prime_factor_upper_bound(x)
     if primes_array is None:
         primes_array = primes_array_below(limit)
@@ -44,7 +44,7 @@ def make_or_extend_primes_of_needed(x: int, primes_array: npt.NDArray[np.int_] |
 def proper_divisors_array(x: int, primes_array: np.ndarray | None = None) -> npt.NDArray[np.int_]:
     if x <= 3:  # noqa PLR2004
         return np.array([1])
-    prime_array = np.array(make_or_extend_primes_of_needed(x, primes_array))
+    prime_array = np.array(make_or_extend_primes_if_needed(x, primes_array))
     len_prime_array = len(prime_array)
     if x in prime_array:
         return np.array([1])
