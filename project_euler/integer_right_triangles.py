@@ -5,15 +5,20 @@ from project_euler.decorators import print_run_time
 
 def _integer_triangle_solutions(p: int) -> int:
     solutions = 0
-    for a in range(1, math.floor(p / 3) + 1):
+    min_b = p
+    for a in range(1, math.floor(p / 3)):
+        if a > min_b:
+            break
         b = math.ceil((p - a) / 2)
         c = math.sqrt(a**2 + b**2)
         while (a + b + c) > p:
             b -= 1
             c = math.sqrt(a**2 + b**2)
-        for rc in (math.floor(c), math.ceil(c)):
-            if a + b + rc == p and a**2 + b**2 == rc**2:
-                solutions += 1
+        c_int = p - a - b
+        if a**2 + b**2 == c_int**2:
+            solutions += 1
+            print(f"{a} {b} {c_int}")
+        min_b = min(b, min_b)
     return solutions
 
 
