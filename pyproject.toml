@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "project_euler"}]
 
 [tool.poetry.dependencies]
-python = ">=3.11,<3.13"
+python = ">=3.11,<4.0"
 numpy = "^1.26.1"
 num2words = "^0.5.13"
 
@@ -24,7 +24,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 line-length = 120
-target-version = "py311"
+target-version = "py312"
 show-fixes = true
 select = [ # see https://beta.ruff.rs/docs/rules/
   "ALL"
@@ -35,7 +35,7 @@ ignore = ["D","T20","PGH004", "COM812", "ISC001"]
 "tests/**/*.py" = ["S101"]  # Ignore use of `assert` in tests
 
 [tool.mypy]
-python_version = 3.11
+python_version = 3.12
 
 [[tool.mypy.overrides]]
 module = [
