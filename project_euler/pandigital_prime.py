@@ -6,7 +6,7 @@ from project_euler.largest_prime_factor import is_prime
 
 @print_run_time
 def largest_pandigital_prime() -> int:
-    for num_digits in range(9, 3, -1):
+    for num_digits in range(7, 3, -1):  # 9 and 8 digit pandigitals would always be divisible by 3
         digits = [str(x + 1) for x in range(num_digits)]
         possible_answers = [int("".join(x)) for x in itertools.permutations(digits)]
         for p in reversed(possible_answers):
